@@ -217,4 +217,147 @@ OrderID INTEGER PRIMARY KEY
 ,ShippedDate VARCHAR(25)
 );
 
+##############################################################################################################
+
+sqlite> SELECT * FROM OrderDetails
+   ...> ;
+OrderDetailID  OrderID     ProductID   UnitPrice   Quantity  
+-------------  ----------  ----------  ----------  ----------
+1              1           1           1.1         30        
+2              1           2           0.25        60        
+3              2           3           5.0         80        
+4              2           4           1.39        110       
+5              2           5           9.97        140       
+6              3           6           14.69       160       
+7              3           1           1.1         30        
+8              3           2           0.25        50        
+9              4           3           5.0         80        
+10             5           4           1.39        100       
+11             5           5           9.97        130       
+12             5           6           14.69       150       
+13             6           1           1.1         20        
+14             6           2           0.25        50        
+15             6           3           5.0         70        
+16             7           4           1.39        90        
+17             7           5           9.97        120       
+18             8           6           14.69       130       
+19             8           1           1.1         20        
+20             8           2           0.25        40        
+21             9           3           5.0         60        
+22             10          4           1.39        80        
+23             10          1           1.1         20        
+24             11          2           0.25        40        
+25             11          3           5.0         60        
+26             11          4           1.39        80        
+27             12          1           1.1         20        
+28             12          2           0.25        40        
+29             13          3           5.0         50        
+30             14          4           1.39        60        
+31             14          5           9.97        80        
+32             15          6           14.69       90        
+33             15          1           1.1         20        
+34             16          2           0.25        30        
+35             16          3           5.0         40        
+36             17          4           1.39        50        
+37             17          5           9.97        70        
+38             17          6           14.69       80        
+39             18          1           1.1         10        
+40             18          2           0.25        20        
+41             18          3           5.0         40        
+42             18          4           1.39        50        
+43             19          5           9.97        60        
+44             19          6           14.69       70        
+45             20          1           1.1         10        
+46             20          2           0.25        20        
+47             20          3           5.0         30   
+
+
+##############################################################################################################
+
+sqlite> SELECT * FROM Customers
+   ...> ;
+CustomerID  CompanyName     ContactName     ContactTitle  Address             City        State     
+----------  --------------  --------------  ------------  ------------------  ----------  ----------
+1           Deerfield Tile  Dick Terrcotta  Owner         450 Village Street  Deerfield   IL        
+2           Sagebrush Carp  Barbara Berber  Director of   10 Industrial Driv  El Paso     TX        
+3           Floor Co.       Jim Wood        Installer     34218 Private Lane  Monclair    NJ        
+4           Main Tile and   Toni Faucet     Owner         Suite 23, Henry Bu  Orlando     FL        
+5           Slots Carpet    Jack Diamond I  Purchaser     3024 Jackpot Drive  Las Vegas   NV  
+
+##############################################################################################################
+
+sqlite> SELECT * FROM Orders
+   ...> ;
+OrderID     CustomerID  OrderDate   RequiredDate  ShippedDate
+----------  ----------  ----------  ------------  -----------
+1           1           2012-01-04  2012-01-09    2012-01-05 
+2           2           2012-01-27  2012-02-01    2012-01-28 
+3           4           2012-02-19  2012-02-24    2012-02-23 
+4           2           2012-03-13  2012-03-18    2012-03-14 
+5           4           2012-04-05  2012-04-10    2012-04-06 
+6           3           2012-04-28  2012-05-03    2012-04-29 
+7           4           2012-05-21  2012-05-26    2012-05-22 
+8           1           2012-06-13  2012-06-18    2012-06-14 
+9           2           2012-07-06  2012-07-11    2012-07-07 
+10          3           2012-07-29  2012-08-03    2012-08-04 
+11          3           2012-08-21  2012-08-26    2012-08-22 
+12          1           2012-09-13  2012-09-18    2012-09-14 
+13          5           2012-10-06  2012-10-11    2012-10-07 
+14          2           2012-10-29  2012-11-03    2012-10-30 
+15          4           2012-11-21  2012-11-26    2012-11-22 
+16          3           2012-12-14  2012-12-19    2012-12-15 
+17          5           2013-01-06  2013-01-11    2013-01-07 
+18          3           2013-01-29  2013-02-03    2013-01-30 
+19          2           2013-02-21  2013-02-26    2013-03-01 
+20          3           2013-03-16  2013-03-21    2013-03-17 
+
+##############################################################################################################
+
+#RESULTADOS ARROGADOS 
+# El total de ordenes del cliente con el ID 3
+
+
+
+
+# El total de ordenes del cliente con el ContactName igual a 'Jim Wood'
+
+
+
+# El total de ordenes del cliente con CompanyName igual a 'Slots Carpet'
+
+
+
+# El total de ordenes de cada compañía ordenado de manera descendente
+
+
+
+# El total de ordenes de cada compañía ordenado de manera ascendente
+
+
+
+# La compañía con el mayor número de ordenes
+
+
+
+# La suma total de piezas que fueron ordenadas por cada compañía.
+
+
+
+# El monto total en pesos de la orden con ID 4
+
+
+
+# El monto total en pesos de cada orden
+
+
+
+# La consulta del inciso anterior pero únicamente mostrando aquellas ordenes que sean mayores
+# a $1,000.00 pesos
+
+
+
+# El total de piezas en cada orden
+
+
+
 
