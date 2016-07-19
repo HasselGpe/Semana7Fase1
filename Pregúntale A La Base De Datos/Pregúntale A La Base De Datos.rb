@@ -311,53 +311,225 @@ OrderID     CustomerID  OrderDate   RequiredDate  ShippedDate
 19          2           2013-02-21  2013-02-26    2013-03-01 
 20          3           2013-03-16  2013-03-21    2013-03-17 
 
-##############################################################################################################
+######################################################################
 
 #RESULTADOS ARROGADOS 
-# El total de ordenes del cliente con el ID 3
 
+# 1ª El total de ordenes del cliente con el ID 3
+# 1. Total orders from client 3
+#PRIMERA MANERA 
+sqlite> SELECT CustomerID, COUNT(Orders.OrderID) AS NumbersOfOrders
+   ...> FROM Orders 
+   ...> WHERE CustomerID = '3';
 
+CustomerID  NumbersOfOrders
+----------  ---------------
+3           6              
 
+#SEGUNDA MANERA
+sqlite> SELECT COUNT(Orders.OrderID) AS NumbersOfOrders
+   ...> FROM Orders
+   ...> WHERE CustomerID = '3';
 
-# El total de ordenes del cliente con el ContactName igual a 'Jim Wood'
+NumbersOfOrders
+---------------
+6   
 
+#TERCERA MANERA
+sqlite> SELECT COUNT(Orders.OrderID) AS Total_Orders_From_Client_3
+   ...> FROM Orders
+   ...> WHERE CustomerID = '3';
 
+Total_Orders_From_Client_3
+--------------------------
+6 
 
-# El total de ordenes del cliente con CompanyName igual a 'Slots Carpet'
+######################################################################
+#2ª El total de ordenes del cliente con el ContactName igual a 'Jim Wood'
+# 2. Total orders from client Jim Wood
 
+sqlite> SELECT COUNT(OrderID) AS Total_orders_from_client_jim_wood
+   ...> FROM Orders
+   ...> INNER JOIN Customers
+   ...> ON Orders.CustomerID = Customers.CustomerID
+   ...> WHERE ContactName = 'Jim Wood';
 
+Total_orders_from_client_jim_wood
+---------------------------------
+6 
 
-# El total de ordenes de cada compañía ordenado de manera descendente
+######################################################################
+#3ª El total de ordenes del cliente con CompanyName igual a 'Slots Carpet'
+# 3. Total orders from company Slots Carpet
+sqlite> SELECT COUNT(OrderID) AS Total_orders_from_Company_Slots_Carpet
+   ...> FROM Orders
+   ...> INNER JOIN Customers
+   ...> ON Orders.CustomerID = Customers.CustomerID
+   ...> WHERE CompanyName = 'Slots Carpet';
 
+Total_orders_from_Company_Slots_Carpet
+--------------------------------------
+2 
 
+######################################################################
+#4º El total de ordenes de cada compañía ordenado de manera descendente
+# 4. Total orders for each company ordered by the company with the most orders
+sqlite> SELECT CompanyName,COUNT(OrderID) AS Total_orders
+   ...> FROM Orders
+   ...> INNER JOIN Customers
+   ...> ON Orders.CustomerID = Customers.CustomerID
+   ...> GROUP BY CompanyName
+   ...> ORDER BY CompanyName DESC;
 
-# El total de ordenes de cada compañía ordenado de manera ascendente
+CompanyName   Total_orders
+------------  ------------
+Slots Carpet  2           
+Sagebrush Ca  5           
+Main Tile an  4           
+Floor Co.     6           
+Deerfield Ti  3 
 
+######################################################################
+#5º El total de ordenes de cada compañía ordenado de manera ascendente
+# 5. Total orders for each company ordered by the company with the least orders
+sqlite> SELECT CompanyName,COUNT(OrderID) AS Total_orders
+   ...> FROM Orders
+   ...> INNER JOIN Customers
+   ...> ON Orders.CustomerID = Customers.CustomerID
+   ...> GROUP BY CompanyName
+   ...> ORDER BY CompanyName ASC;
 
+CompanyName     Total_orders
+--------------  ------------
+Deerfield Tile  3           
+Floor Co.       6           
+Main Tile and   4           
+Sagebrush Carp  5           
+Slots Carpet    2 
+######################################################################
+#6º La compañía con el mayor número de ordenes
+# 6. The company with the most orders
+sqlite> SELECT CompanyName, COUNT(OrderID) AS Pedidos
+   ...> FROM Orders
+   ...> INNER JOIN Customers
+   ...> On Orders.CustomerID = Customers.CustomerID
+   ...> GROUP BY CompanyName
+   ...> ORDER BY Pedidos DESC
+   ...> LIMIT 1;#If you want just the customer with most orders, you have to limit the number of records to the first one.For that, you have to tell what DBMS you use.(LIMIT 1)
 
-# La compañía con el mayor número de ordenes
+CompanyName  Pedidos   
+-----------  ----------
+Floor Co.    6  
 
+######################################################################
+#7ª La suma total de piezas que fueron ordenadas por cada compañía.
+# 7. Total items ordered by each company ordered by the company with the most items
+sqlite> SELECT CompanyName, SUM(Quantity) AS Piezas
+   ...> FROM Orders
+   ...> INNER JOIN OrderDetails
+   ...> On Orders.OrderID = OrderDetails.OrderID
+   ...> INNER JOIN Customers
+   ...> On Orders.CustomerID = Customers.CustomerID
+   ...> GROUP BY CompanyName
+   ...> ORDER BY Piezas DESC;
 
+CompanyName         Piezas    
+------------------  ----------
+Main Tile and Bath  940       
+Sagebrush Carpet    740       
+Floor Co.           670       
+Deerfield Tile      340       
+Slots Carpet        250 
 
-# La suma total de piezas que fueron ordenadas por cada compañía.
+######################################################################
+#9º El monto total en pesos de la orden con ID 4
+sqlite> SELECT OrderID, UnitPrice * Quantity AS Costo_total
+   ...> FROM OrderDetails
+   ...> WHERE OrderID = 4;
 
+OrderID     Costo_total
+----------  -----------
+4           400.0  
 
+######################################################################
+#10º El monto total en pesos de cada orden
+sqlite> SELECT OrderID, SUM(UnitPrice *Quantity) AS Total
+   ...> FROM OrderDetails
+   ...> GROUP BY OrderID;
 
-# El monto total en pesos de la orden con ID 4
+OrderID     Total     
+----------  ----------
+1           48.0      
+2           1948.7    
+3           2395.9    
+4           400.0     
+5           3638.6    
+6           384.5     
+7           1321.5    
+8           1941.7    
+9           300.0     
+10          133.2     
+11          421.2     
+12          32.0      
+13          250.0     
+14          881.0     
+15          1344.1    
+16          207.5     
+17          1942.6    
+18          285.5     
+19          1626.5    
+20          166.0  
 
-
-
-# El monto total en pesos de cada orden
-
-
-
-# La consulta del inciso anterior pero únicamente mostrando aquellas ordenes que sean mayores
+######################################################################
+#11º La consulta del inciso anterior pero únicamente mostrando aquellas ordenes que sean mayores
+# 11. Total items in each order
 # a $1,000.00 pesos
 
+sqlite> SELECT OrderID, SUM(UnitPrice *Quantity) AS Total
+   ...> FROM OrderDetails
+   ...> GROUP BY OrderID
+   ...> HAVING SUM (UnitPrice * Quantity) > 1000.00
+   ...> ;
+OrderID     Total     
+----------  ----------
+2           1948.7    
+3           2395.9    
+5           3638.6    
+7           1321.5    
+8           1941.7    
+15          1344.1    
+17          1942.6    
+19          1626.5    
 
-
-# El total de piezas en cada orden
-
+######################################################################
+#12º El total de piezas en cada orden
+sqlite> SELECT OrderID, SUM(Quantity) 
+   ...> FROM OrderDetails
+   ...> GROUP BY OrderID
+   ...> ;
+   
+OrderID     SUM(Quantity)
+----------  -------------
+1           90           
+2           330          
+3           240          
+4           80           
+5           380          
+6           140          
+7           210          
+8           190          
+9           60           
+10          100          
+11          180          
+12          60           
+13          50           
+14          140          
+15          110          
+16          70           
+17          200          
+18          120          
+19          130          
+20          60 
 
 
 

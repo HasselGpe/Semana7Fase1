@@ -13,9 +13,11 @@ En este ejercicio vamos a modelar una aplicación con usuarios:
 | email      |
 | phone      |
 +------------+
-Este reto te permitirá familiarizarte con los conceptos básicos del ORM por default de Rails llamado ActiveRecord.
+Este reto te permitirá familiarizarte con los conceptos básicos del ORM por default de Rails 
+llamado ActiveRecord.
 
-Ten en cuenta que no todas las funciones que tiene ActiveRecord en Rails están disponibles en este proyecto.
+Ten en cuenta que no todas las funciones que tiene ActiveRecord en Rails están disponibles en 
+este proyecto.
 
 Te recomendamos empezar leyendo la guía 'Active Record Basics'.
 
@@ -35,7 +37,8 @@ Crea la base de datos con el comando rake db:create
 Migraciones
 Las migraciones son archivos que sirven para crear tablas y modificarlas en la base de datos.
 
-Utiliza el siguiente código y agrega lo que le falte para crear la tabla de usuarios como aparece al inicio del ejercicio.
+Utiliza el siguiente código y agrega lo que le falte para crear la tabla de usuarios como 
+aparece al inicio del ejercicio.
 
 El siguiente link puede ayudarte con la sintaxis:
 
@@ -50,22 +53,26 @@ class CreateUsers < ActiveRecord::Migration
     end
   end
 end
-Una vez que definas el diseño de tu tabla deberás correr la migración con el siguiente comando. Y también correremos el archivo seed para llenar de información la tabla.
+Una vez que definas el diseño de tu tabla deberás correr la migración con el siguiente comando.
+ Y también correremos el archivo seed para llenar de información la tabla.
 
 $ rake db:migrate
 $ rake db:seed
 Para comprobar que hiciste bien tu migración utiliza el siguiente comando.
 
 $ rspec spec/migrate_create_table_spec.rb
-Todas las pruebas deberán pasar. Si tienes un error intenta solucionarlo si no puedes busca a un instructor.
+Todas las pruebas deberán pasar. Si tienes un error intenta solucionarlo si no puedes busca a 
+un instructor.
 
-Si quieres jugar con el proyecto desde la consola de Ruby utiliza el siguiente comando y en la guía de ActiveRecord busca que métodos puedes utilizar.
+Si quieres jugar con el proyecto desde la consola de Ruby utiliza el siguiente comando y en la 
+guía de ActiveRecord busca que métodos puedes utilizar.
 
 $ rake console
 El Modelo User
 El siguiente archivo contiene la clase User: app/models/user.rb.
 
-ActiveRecord se encarga de crearte readers y writers para cada uno de las columnas que definiste.WOW!!!
+ActiveRecord se encarga de crearte readers y writers para cada uno de las columnas que 
+definiste.WOW!!!
 
 Crear métodos personalizados:
 
@@ -76,11 +83,13 @@ Corre las pruebas:
 $ rspec spec/user_spec.rb -e "#name and #age"
 Validaciones
 
-Entra al siguiente link y aprende como ActiveRecord crea validaciones para los campos.ActiveRecord Validations
+Entra al siguiente link y aprende como ActiveRecord crea validaciones para los campos.ActiveRecord 
+Validations
 
 Crea las siguientes validaciones en tu modelo Usuario:
 
-La dirección de email deberá contener una @ y al menos un . , con al menos un caracter antes de la @, un caracter entre la @ y el primer . y al menos dos caracteres después del . final.
+La dirección de email deberá contener una @ y al menos un . , con al menos un caracter antes de 
+la @, un caracter entre la @ y el primer . y al menos dos caracteres después del . final.
 Dos usuarios no deberán tener el mismo email, este debe de ser único.
 Los usuarios deberán de ser mayores de edad.
 Corre las pruebas:
@@ -88,8 +97,13 @@ Corre las pruebas:
 $ rspec spec/user_spec.rb -e "validations"
 Validaciones Avanzadas
 
-Crea una validación personalizada donde el teléfono no pueda tener menos de 10 dígitos sin contar caracteres no numéricos.
+Crea una validación personalizada donde el teléfono no pueda tener menos de 10 dígitos sin 
+contar caracteres no numéricos.
 
 Todas las pruebas deben pasar.
 
 $ rspec spec/user_spec.rb -e "advanced validations"
+#####################################################################################################################################################################
+
+
+
